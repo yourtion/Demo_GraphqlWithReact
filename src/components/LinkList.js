@@ -67,7 +67,6 @@ class LinkList extends Component {
     }
 
     const allLinks = this.props.allLinksQuery.allLinks;
-    console.log(allLinks);
     if (allLinks.length === 0) {
       return <div>No links...</div>;
     }
