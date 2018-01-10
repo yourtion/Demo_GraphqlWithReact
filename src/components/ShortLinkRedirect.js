@@ -76,7 +76,7 @@ const ShortLinkRedirect = ({
   }
 
   // Navigate to the full URL
-  // window.location = linkInfo.url;
+  window.location = linkInfo.url;
   return null;
 };
 

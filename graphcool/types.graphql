@@ -5,6 +5,7 @@ type Link @model {
   description: String
   stats: LinkStats @relation(name: "LinkOnLinkStats")
   dummy:String
+  createdBy: User @relation(name: "UserLinks")
 }
 
 type LinkStats @model {
@@ -25,4 +26,6 @@ type User @model {
 
   email: String! @isUnique
   password: String!
+
+  links: [Link!]! @relation(name: "UserLinks")
 }
