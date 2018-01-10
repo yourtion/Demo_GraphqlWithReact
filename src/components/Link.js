@@ -8,7 +8,7 @@ class Link extends Component {
         <div>
           {this.props.link.description} ({this.props.link.url} -{' '}
           {this.props.link.hash})
-                </div>
+        </div>
       </div>
     );
   }
