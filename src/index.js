@@ -5,6 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
+import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
@@ -25,15 +26,28 @@ const wsLink = new WebSocketLink({
     reconnect: true
   }
 });
+
 const httpLink = new HttpLink({ uri: HTTPS_LINK + SERVICE_ID, });
+
+const apolloLinkWithToken = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem('SHORTLY_TOKEN');
+  const authHeader = token ? `Bearer ${token}` : null;
+  operation.setContext({
+      headers: {
+          authorization: authHeader,
+      },
+  });
+  return forward(operation);
+});
+const httpLinkWithToken = apolloLinkWithToken.concat(httpLink);
 
 const link = split(
   ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    return kind === 'OperationDefinition' && operation === 'subscription';
+      const { kind, operation } = getMainDefinition(query);
+      return kind === 'OperationDefinition' && operation === 'subscription';
   },
   wsLink,
-  httpLink,
+  httpLinkWithToken,
 );
 
 const client = new ApolloClient({
