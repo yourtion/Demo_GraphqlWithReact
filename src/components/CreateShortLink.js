@@ -53,6 +53,7 @@ class CreateShortLink extends Component {
   createShortLink = async () => {
     const linkCountQuery = await this.props.client.query({
       query: GET_LINK_COUNT_QUERY,
+      fetchPolicy: 'network-only',
     });
 
     const linkCount = linkCountQuery.data.links.count;
