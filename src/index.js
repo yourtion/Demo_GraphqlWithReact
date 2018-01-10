@@ -11,7 +11,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 import './index.css';
-import App from './App';
+import AppRouter from './AppRouter';
 
 // Create the ApolloClient instance 
 const SERVICE_ID = 'cjc8qcgbj1bxm0175g4fnf3xd';
@@ -47,8 +47,8 @@ const withApolloProvider = Comp => (
 );
 
 ReactDOM.render(
-    withApolloProvider(<App />),
-    document.getElementById('root')
+  withApolloProvider(<AppRouter />),
+  document.getElementById('root'),
 );
 
 registerServiceWorker();
