@@ -20,12 +20,15 @@ query AllLinksQuery {
 
 const LINKS_SUBSCRIPTION = gql`
 subscription NewLinkCreatedSubscription {
-  Link(filter: { mutation_in: [CREATED] }) {
+  Link(filter: { mutation_in: [CREATED, UPDATED] }) {
     node {
       id
       url
       description
       hash
+      stats {
+        clicks
+      }
     }
   }
 }
@@ -36,6 +39,10 @@ class LinkList extends Component {
     this.props.allLinksQuery.subscribeToMore({
       document: LINKS_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
+        if (prev.allLinks.find(
+          l => l.id === subscriptionData.data.Link.node.id)) {
+          return prev;
+        }
         const newLinks = [
           ...prev.allLinks,
           subscriptionData.data.Link.node,
@@ -60,6 +67,7 @@ class LinkList extends Component {
     }
 
     const allLinks = this.props.allLinksQuery.allLinks;
+    console.log(allLinks);
     if (allLinks.length === 0) {
       return <div>No links...</div>;
     }

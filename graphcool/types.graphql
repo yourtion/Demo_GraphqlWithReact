@@ -4,6 +4,7 @@ type Link @model {
   url: String!
   description: String
   stats: LinkStats @relation(name: "LinkOnLinkStats")
+  dummy:String
 }
 
 type LinkStats @model {

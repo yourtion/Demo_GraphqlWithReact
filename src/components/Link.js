@@ -7,10 +7,12 @@ class Link extends Component {
     return (
       <div>
         <div>
-          {this.props.link.description}
-          ({this.props.link.url} - {' '}{this.props.link.hash})
-          --> clicks: {clickCount}
-        </div>
+        {this.props.link.description}
+        (<a href={this.props.link.hash}>
+            {this.props.link.hash}
+        </a>) 
+        --> clicks: {clickCount}
+    </div>
       </div>
     );
   }

@@ -13,24 +13,27 @@ query GetFullLink($hash: String!) {
       clicks
     }
   }
-}`;
+}
+`;
 
 const UPDATE_CLICK_COUNT_MUTATION = gql`
 mutation UpdateClickCount($id: ID!, $clicks: Int!) {
-  updateLink(id: $id, stats: { clicks: $clicks }) {
+  updateLink(id: $id, dummy: "dummy", stats: { clicks: $clicks }) {
     id
   }
-}`;
+}
+`;
 
 const CREATE_LINK_STATS_MUTATION = gql`
 mutation CreateLinkStats($linkId: ID!, $clicks: Int!) {
   createLinkStats(linkId: $linkId, clicks: $clicks) {
     id
   }
-}`;
+}
+`;
 
 const ShortLinkRedirect = ({
-  updateClickCount,
+    updateClickCount,
   createLinkStats,
   hash,
   data: { loading, error, allLinks },
@@ -66,14 +69,14 @@ const ShortLinkRedirect = ({
     // Update the click count.
     updateClickCount({
       variables: {
-        id: linkInfo.stats.id,
+        id: linkInfo.id,
         clicks: currentClicks,
       },
     });
   }
 
   // Navigate to the full URL
-  window.location = linkInfo.url;
+  // window.location = linkInfo.url;
   return null;
 };
 
