@@ -24,6 +24,12 @@ types: ./types.graphql
 permissions:
   - operation: "*"
 
+functions:
+  createShortLink:
+    type: subscription
+    query: src/createShortLink.graphql
+    handler:
+      code: src/createShortLink.js
 
 # Your root tokens used for functions to get full access to the API
 # Read more here:
