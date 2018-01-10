@@ -2,6 +2,10 @@
   "name": "graphcool",
   "version": "1.0.0",
   "description": "My Graphcool Service",
+  "scripts": {
+    "deploy": "graphcool-framework deploy",
+    "logs": "graphcool-framework logs"
+  },
   "dependencies": {
     "graphcool-lib": "^0.1.4"
   }
