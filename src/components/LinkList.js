@@ -11,6 +11,9 @@ query AllLinksQuery {
     url
     description
     hash
+    stats {
+      clicks
+    }
   }
 }
 `;
